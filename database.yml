@@ -1,0 +1,11 @@
+development:
+  dialect: "sqlite3"
+  database: /home/psimoesSsimoes/go/src/github.com/psimoesSsimoes/query2form/query2form_development.sqlite
+
+test:
+  dialect: "sqlite3"
+  database: /home/psimoesSsimoes/go/src/github.com/psimoesSsimoes/query2form/query2form_test.sqlite
+
+production:
+  dialect: "sqlite3"
+  database: /home/psimoesSsimoes/go/src/github.com/psimoesSsimoes/query2form/query2form_production.sqlite
