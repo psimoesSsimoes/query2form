@@ -9,12 +9,12 @@ import (
 
 // HomeHandler is a default handler to serve up
 // a home page.
-func QueryHandler(c buffalo.Context) error {
-	values := []string{}
+func QueryGetHandler(c buffalo.Context) error {
+	values := map[string]interface{}{}
 	if m, ok := c.Params().(url.Values); ok {
-		for _, v := range m {
-			fmt.Println(v)
-			values = append(values, fmt.Sprintf("%+v", v[0]))
+		for k, v := range m {
+			fmt.Println(k)
+			values[k] = v
 		}
 	}
 	c.Set("values", values)
