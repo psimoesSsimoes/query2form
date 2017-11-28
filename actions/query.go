@@ -2,7 +2,7 @@ package actions
 
 import (
 	"fmt"
-	"reflect"
+	"net/url"
 
 	"github.com/gobuffalo/buffalo"
 )
@@ -10,11 +10,12 @@ import (
 // HomeHandler is a default handler to serve up
 // a home page.
 func QueryHandler(c buffalo.Context) error {
-	x := reflect.ValueOf(c.Params()).MapKeys()
 	values := []string{}
-	for _, v := range x {
-		fmt.Println("%T", v)
-		values = append(values, fmt.Sprintf("%+v", v))
+	if m, ok := c.Params().(url.Values); ok {
+		for _, v := range m {
+			fmt.Println(v)
+			values = append(values, fmt.Sprintf("%+v", v[0]))
+		}
 	}
 	c.Set("values", values)
 
