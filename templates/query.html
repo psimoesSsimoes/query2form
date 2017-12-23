@@ -203,17 +203,11 @@ input:hover:focus::-ms-placeholder, textarea:hover::focus:-ms-placeholder {
 
 body {
   font-family: 'Lato', sans-serif;
-  background: #e2dedb;
+  background: #f7f4f2;
   color: #b3aca7;
 }
 
-header {
-  position: relative;
-  margin: 100px 0 25px 0;
-  font-size: 2.3em;
-  text-align: center;
-  letter-spacing: 7px;
-}
+
 
 #form {
   position: relative;
@@ -254,7 +248,7 @@ textarea {
   
   color: #726659;
   font-family: 'Lato', sans-serif;
-  font-size: 0.875em;
+  font-size: 1.275em;
   
   border: solid 1px #b3aca7;
   
@@ -297,10 +291,10 @@ textarea:hover {
         <a href="<%= rootPath() %>"><img src="<%= rootPath() %>assets/images/c2net-logo.svg" alt=""></a>
       </div>
       <div class="col-md-9 col-sm-9 col-xs-10 titles">
-        <h1>Welcome to C2NeT form filler</h1>
-        <h2 class="documentation">
-          <a href="http://c2net-project.eu/"><i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
-        </h2>
+        <h1>Production Report</h1>
+        <h4 class="documentation">
+		<a><i class="fa fa-calendar" aria-hidden="true"></i><%= timestamp%></a>
+        </h4>
       </div>
     </div>
   </div>
@@ -311,16 +305,23 @@ textarea:hover {
   <div class="col-md-12">
     <div class="subtitle">
       <div class="container">
-        <h3>Some title for form</h3>
+	      <h3>Status of Production: <%= status %></h3>
       </div>
     </div>
       
       <form>
-      <%= for (k,v) in values { %>
-      <input class="col-md-12" id=<%= k %> type="text" placeholder=<%= k %> value=<%= v %>  >
-  <% } %>
-  <textarea class="col-md-12" id="message" type="text" placeholder="MESSAGE"></textarea>
-  <input class="col-md-12" id="submit" type="submit" value="GO!">
+	      <%= if (problem==true){ %>
+	       <div class="subtitle">
+
+	      <div class="container">
+
+	      	<h4>Planned Production was <%= expected %> pieces but our sensors measured  <%= measured %> pieces</h4>
+		</div>
+		</div>
+		<textarea class="col-md-12" id="notes" type="text" placeholder="Problem Description:"></textarea>
+      <% } %>
+  <textarea class="col-md-12" id="notes" type="text" placeholder="Notes:"></textarea>
+  <input class="col-md-12" id="submit" type="submit" value="Save">
 
       </form>
 	
