@@ -8,7 +8,7 @@ import (
 )
 
 func ReportCSV(r Report) {
-	file, err := os.Create("result.csv")
+	file, err := os.OpenFile("csv/result.csv", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	checkError("Cannot create file", err)
 	defer file.Close()
 

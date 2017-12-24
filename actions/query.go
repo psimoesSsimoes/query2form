@@ -2,12 +2,13 @@ package actions
 
 import (
 	"fmt"
-	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/render"
-	"github.com/psimoesSsimoes/query2form/models"
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/render"
+	"github.com/psimoesSsimoes/query2form/models"
 )
 
 type Report struct {
@@ -20,7 +21,7 @@ type Report struct {
 	submit    string `form:"submit"`
 }
 
-var report Report
+var report models.Report
 
 // HomeHandler is a default handler to serve up
 // a home page.
@@ -58,11 +59,8 @@ func QueryGetHandler(c buffalo.Context) error {
 	t := time.Now()
 	timestamp := fmt.Sprintf(t.Format("2006-01-02 15:04:05"))
 
-	report = Report{}
-	report.expected = values["expected"]
-	report.measured = values["measured"]
-	report.eventcode = values["eventcode"]
-	report.id = values["id"]
+	report = models.Report{}
+	report.FillReportInt(values["expected"], values["measured"], values["eventcode"], values["id"], timestamp)
 
 	c.Set("timestamp", timestamp)
 	c.Set("status", status)
@@ -77,18 +75,24 @@ func QueryGetHandler(c buffalo.Context) error {
 
 func QueryPostHandler(c buffalo.Context) error {
 
+	var (
+		notes   string
+		problem string
+	)
+
 	if val, ok := c.Request().Form["notes"]; ok {
 
-		report.notes = val[0]
+		notes = val[0]
 	}
 
 	if val, ok := c.Request().Form["problem"]; ok {
 
-		report.problem = val[0]
+		problem = val[0]
 	}
 
+	report.FillReportString(notes, problem)
 	fmt.Println(report)
-	//models.ReportCSV(report)
+	models.ReportCSV(report)
 	c.Flash().Add("success", "Widget was successfully created!")
 	return c.Render(200, render.String("Saved!"))
 
