@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/render"
 	"github.com/psimoesSsimoes/query2form/models"
 )
 
@@ -93,7 +92,7 @@ func QueryPostHandler(c buffalo.Context) error {
 	report.FillReportString(notes, problem)
 	fmt.Println(report)
 	models.ReportCSV(report)
-	c.Flash().Add("success", "Widget was successfully created!")
-	return c.Render(200, render.String("Saved!"))
+	c.Flash().Add("success", "Report was successfully created!")
+	return c.Render(200, r.HTML("saved.html"))
 
 }
