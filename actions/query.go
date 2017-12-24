@@ -2,12 +2,12 @@ package actions
 
 import (
 	"fmt"
+	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/render"
+	"github.com/psimoesSsimoes/query2form/models"
 	"net/url"
 	"strconv"
 	"time"
-
-	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/render"
 )
 
 type Report struct {
@@ -88,6 +88,7 @@ func QueryPostHandler(c buffalo.Context) error {
 	}
 
 	fmt.Println(report)
+	//models.ReportCSV(report)
 	c.Flash().Add("success", "Widget was successfully created!")
 	return c.Render(200, render.String("Saved!"))
 
