@@ -56,6 +56,7 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 		app.GET("/query", QueryGetHandler)
+		app.POST("/query", QueryPostHandler)
 		// app.POST("/query", QueryPostHandler)
 
 		app.ServeFiles("/assets", assetsBox)

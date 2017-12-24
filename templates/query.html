@@ -259,8 +259,7 @@ textarea {
 }
 
 textarea:hover {
-  background: #b3aca7;
-  color: #e2dedb;
+  color: #b3aca7;
 }
 
 #submit {
@@ -269,7 +268,7 @@ textarea:hover {
   margin: -5px 0px 0px 0px;
   
   font-family: 'Lato', sans-serif;
-  font-size: 0.875em;
+  font-size: 1.275em;
   color: #b3aca7;
   
   outline:none;
@@ -309,22 +308,27 @@ textarea:hover {
       </div>
     </div>
       
-      <form>
-	      <%= if (problem==true){ %>
-	       <div class="subtitle">
+    <%= form({action: queryPath(), method: "POST"}) { %>
+    <label>
+  <div class="subtitle">
+      <div class="container">
 
-	      <div class="container">
-
+    <%= if (problem==true){ %>
+	     
 	      	<h4>Planned Production was <%= expected %> pieces but our sensors measured  <%= measured %> pieces</h4>
 		</div>
 		</div>
-		<textarea class="col-md-12" id="notes" type="text" placeholder="Problem Description:"></textarea>
-      <% } %>
-  <textarea class="col-md-12" id="notes" type="text" placeholder="Notes:"></textarea>
-  <input class="col-md-12" id="submit" type="submit" value="Save">
+		 <%= f.TextArea({placeholder: "Problem Description",id:"problem",rows:10,name:"problem", hide_label: true }) %>
+		 <% }else {%>
+    	<h4>Planned Production was <%= expected %> pieces and our sensors measured  <%= measured %> pieces</h4>
+	</div>
+	</div>
 
-      </form>
-	
+  <% } %>
+    <%= f.TextArea({placeholder: "Notes",id:"notes",name:"notes",rows:9 }) %>
+  <%= f.InputTag({name:"submit", type:"submit", value: "Save" }) %>
+  <% } %>
+  </label>
   </div>
 </div>
 <div class="foot"> <span> Powered by <a href="http://gris.uninova.pt">GRIS/UNINOVA</a></span> </div>
